@@ -4,7 +4,7 @@ import { uploadBlobToSanity } from "./upload";
 /**
  * Generates HTML content for the receipt.
  */
-function generateReceiptHtml(saleData: any, currency: string): string {
+function generateReceiptHtml(saleData , currency = 'USD') {
   // Basic inline styles - consider using CSS classes and a <style> tag for more complex styling
   const styles = {
     body: `font-family: 'Arial', sans-serif; font-size: 10px; line-height: 1.4; color: #333;`,
@@ -23,7 +23,7 @@ function generateReceiptHtml(saleData: any, currency: string): string {
 
   const itemsHtml = saleData.items
     .map(
-      (item:any) => `
+      (item) => `
         <tr>
             <td style="${styles.td}">
                 ${item.product.name} ${item.variant ? `(${item.variant.name})` : ''}<br/>
@@ -105,13 +105,13 @@ function generateReceiptHtml(saleData: any, currency: string): string {
  * @returns Formatted date string
  */
 export function formatDate(
-  date: Date | string,
-  options: Intl.DateTimeFormatOptions = {
+  date,
+  options = {
     year: "numeric",
     month: "short",
     day: "numeric",
   }
-): string {
+) {
   const dateObj = typeof date === "string" ? new Date(date) : date;
   return new Intl.DateTimeFormat("en-US", options).format(dateObj);
 }
@@ -122,8 +122,8 @@ export function formatDate(
  * Returns the Sanity asset URL.
  */
 export async function generateAndSaveReceiptPdf(
-  saleData: any
-): Promise<string> {
+  saleData,
+) {
   let browser;
   try {
     const htmlContent = generateReceiptHtml(saleData, 'KSH'); // Assuming USD as currency, adjust as needed

@@ -6,16 +6,16 @@
  * @returns Promise with the Sanity asset document
  */
 export async function uploadBlobToSanity(
-  file: Blob | Buffer,
-  filename: string,
-  contentType: string,
-): Promise<any> {
+  file,
+  filename,
+  contentType,
+) {
   // Convert Buffer to Blob if needed
   const blob =
     file instanceof Buffer ? new Blob([file], { type: contentType }) : file;
     const sanityConfig = {
-      projectId: process.env.SANITY_PROJECT_ID!,
-      dataset: process.env.SANITY_DATASET!,
+      projectId: process.env.SANITY_PROJECT_ID,
+      dataset: process.env.SANITY_DATASET,
       token: process.env.SANITY_API_TOKEN,
     };
     

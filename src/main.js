@@ -1,6 +1,6 @@
 import { generateAndSaveReceiptPdf } from "./tools/pdf";
 
-export default async ({ req, res, log }:any) => {
+export default async ({ req, res, log }) => {
   const saleData = await req.json();
   console.log("Received sale data:", saleData);
   const pdfBuffer = await generateAndSaveReceiptPdf(saleData);
